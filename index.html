@@ -32,11 +32,10 @@
     <p>جارٍ التحميل...</p>
   </div>
 
-  <script type="module">
-    import { auth, getSessionInstitution } from "./firebase-config.js";
-    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-
-    onAuthStateChanged(auth, (user) => {
-      const institutionId = getSessionInstitution();
-      if (user && institutionId) {
-        window.location.replace("dashboard.html");
+  <script>
+    // مؤقت احتياطي مستقل تمامًا: يعمل حتى لو فشل تحميل Firebase أو الوحدة (module) بالكامل
+    let redirected = false;
+    function safeRedirect(url) {
+      if (redirected) return;
+      redirected = true;
+      window.location.replace(url);
