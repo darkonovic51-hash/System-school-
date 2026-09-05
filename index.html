@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>School Manager</title>
+<style>
+  *{margin:0; padding:0; box-sizing:border-box;}
+  body{
+    font-family:'Cairo', sans-serif;
+    background:linear-gradient(160deg, #EEF2FF 0%, #F8FAFC 55%, #F1F5F9 100%);
+    min-height:100vh; display:flex; align-items:center; justify-content:center;
+  }
+  .loader{ text-align:center; }
+  .logo-circle{
+    width:64px; height:64px; background:#EEF2FF; border-radius:18px;
+    display:flex; align-items:center; justify-content:center; font-size:28px;
+    margin:0 auto 16px;
+  }
+  .spinner{
+    width:28px; height:28px; border:3px solid #E2E8F0; border-top-color:#4F46E5;
+    border-radius:50%; animation:spin .8s linear infinite; margin:0 auto;
+  }
+  @keyframes spin{ to{ transform:rotate(360deg); } }
+  p{ color:#64748B; font-size:14px; margin-top:14px; }
+</style>
+</head>
+<body>
+  <div class="loader">
+    <div class="logo-circle">🏫</div>
+    <div class="spinner"></div>
+    <p>جارٍ التحميل...</p>
+  </div>
+
+  <script type="module">
+    import { auth, getSessionInstitution } from "./firebase-config.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+    onAuthStateChanged(auth, (user) => {
+      const institutionId = getSessionInstitution();
+      if (user && institutionId) {
+        window.location.replace("dashboard.html");
