@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>نظام تسيير المؤسسة</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            background: #f7f8fc;
+            color: #1f2937;
+        }
+
+        .loading {
+            text-align: center;
+        }
+
+        .logo {
+            width: 64px;
+            height: 64px;
+            margin: auto;
+            border-radius: 18px;
+            background: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.2);
+        }
+
+        h2 {
+            margin: 20px 0 8px;
+            font-size: 20px;
+        }
+
+        p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .spinner {
+            width: 25px;
+            height: 25px;
+            margin: 20px auto 0;
+            border: 3px solid #e5e7eb;
+            border-top-color: #2563eb;
+            border-radius: 50%;
+            animation: spin .8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="loading">
+
+    <div class="logo">م</div>
+
+    <h2>نظام تسيير المؤسسة</h2>
+
+    <p>جاري فتح النظام...</p>
+
+    <div class="spinner"></div>
+
+</div>
+
+<script>
+
+    /*
+       عند فتح الموقع:
+       نتحقق هل توجد جلسة مؤسسة محفوظة.
+    */
+
+    const institutionActivated =
+        localStorage.getItem("institutionActivated");
+
+    const adminLoggedIn =
+        localStorage.getItem("adminLoggedIn");
+
+
+    setTimeout(() => {
+
+        if (institutionActivated === "true" &&
+            adminLoggedIn === "true") {
+
+            // المدير سبق له الدخول
+            window.location.href = "dashboard.html";
+
+        } else {
+
+            // مؤسسة جديدة أو غير مفعلة
+            window.location.href = "activation.html";
+
+        }
+
+    }, 700);
+
+</script>
+
+</body>
+</html>
